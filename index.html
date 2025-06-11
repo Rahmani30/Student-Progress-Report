@@ -2,54 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Progress Report</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 40px; text-align: center; }
-    .container { background: white; padding: 20px; border-radius: 8px; display: inline-block; }
-    input { padding: 10px; font-size: 16px; width: 250px; margin: 10px 0; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-    .result { margin-top: 20px; font-size: 18px; color: green; }
-    .error { color: red; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
+        input, button { padding: 10px; font-size: 16px; margin: 10px; }
+        #result { margin-top: 20px; padding: 20px; background-color: white; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Student Progress Report</h2>
-    <p>Enter your Roll Number to view result</p>
-    <input type="text" id="rollNo" placeholder="Enter Roll Number" />
-    <br />
-    <button onclick="getResult()">Check Result</button>
-    <div id="output" class="result"></div>
-  </div>
+    <h1>📊 Student Progress Report</h1>
+    <input type="text" id="rollNumber" placeholder="Enter Roll Number (e.g., B114610)" />
+    <button onclick="fetchResult()">Submit</button>
+    <div id="result"></div>
 
-  <script>
-    async function getResult() {
-      const rollNo = document.getElementById('rollNo').value.trim();
-      const output = document.getElementById('output');
-      output.textContent = 'Loading...';
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbzH0LlfyXeZy3GQRkAdut6n0D2f-akXlZL4K5rmQNENKvYS6rWpVCZK0lYPq1uHAGyt/exec?roll=" + rollNo);
-        const data = await res.json();
-
-        if (data && data.name) {
-          output.innerHTML = `
-            <strong>Name:</strong> ${data.name} <br />
-            <strong>Marks:</strong> ${data.marks} <br />
-            <strong>Rank:</strong> ${data.rank}
-          `;
-          output.className = 'result';
-        } else {
-          output.textContent = 'No record found.';
-          output.className = 'result error';
-        }
-      } catch (e) {
-        output.textContent = 'Error fetching data.';
-        output.className = 'result error';
-      }
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
